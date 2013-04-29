@@ -40,6 +40,7 @@ class Url extends CActiveRecord
 			array('created', 'numerical', 'integerOnly'=>true),
 			array('slug', 'length', 'max'=>50),
 			array('url', 'safe'),
+      array('url,slug', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('created, id, slug, url', 'safe', 'on'=>'search'),
@@ -90,4 +91,15 @@ class Url extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+  public function beforeValidate() {
+    $this->slug = $this->createSlug();
+    $this->created = time();
+    return parent::beforeValidate();
+  }
+
+  public function createSlug() {
+    $got_slug = Url::model()->find( array( 'order' => 'slug DESC' ) );
+    return ! empty( $slug ) ? ++$got_slug->slug : 'AA';
+  }
 }
