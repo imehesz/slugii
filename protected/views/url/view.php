@@ -18,12 +18,10 @@ $this->menu=array(
 
 <h1>View Url #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'created',
-		'id',
-		'slug',
-		'url',
-	),
-)); ?>
+<?php 
+    echo 
+        CHtml::link( 
+            $_SERVER['SERVER_NAME'] . '/' . $model->slug, 
+            $this->createUrl( '/' . $model->slug ) 
+        );
+?>
