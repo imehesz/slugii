@@ -100,6 +100,6 @@ class Url extends CActiveRecord
 
   public function createSlug() {
     $got_slug = Url::model()->find( array( 'order' => 'slug DESC' ) );
-    return ! empty( $slug ) ? ++$got_slug->slug : 'AA';
+    return ! empty( $got_slug ) ? ++$got_slug->slug : 'AA';
   }
 }
